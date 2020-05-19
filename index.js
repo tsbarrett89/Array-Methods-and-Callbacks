@@ -12,6 +12,35 @@ console.log('its working');
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
+//a
+function exerciseA (data){
+    const finalGame = data.filter(function(match){
+        return match.Year === 2014 && match.Stage === 'Final'
+    })
+    console.log(finalGame)
+    const homeTeamName = finalGame[0]["Home Team Name"]
+    return homeTeamName
+}
+
+console.log(exerciseA(fifaData))
+
+//e
+function exerciseE (data){
+    const finalGame = data.filter(function(match){
+        return match.Year === 2014 && match.Stage === 'Final'
+    })
+
+    const homeTeamScore = finalGame[0]["Home Team Goals"]
+    const awayTeamScore = finalGame[0]["Away Team Goals"]
+
+    if(homeTeamScore > awayTeamScore){
+        return finalGame[0]["Home Team Name"]
+    } else if(awayTeamScore > homeTeamScore){
+        return finalGame[0]["Away Team Name"]
+    }
+}
+
+console.log(exerciseE(fifaData))
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
@@ -56,13 +85,18 @@ getWinnersByYear();
 
 /* Task 7: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
-
-    /* code here */
-
+function getAverageGoals(data) {
+    const totalMatches = data.length
+    const homeGoalsTotal = data.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue["Home Team Goals"];
+    }, 0)
+    const awayGoalsTotal = data.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue["Away Team Goals"];
+    }, 0)
+    return `Home Team Average Goals: ${homeGoalsTotal/totalMatches}, Away Team Average Goals: ${awayGoalsTotal/totalMatches}`
 };
 
-getAverageGoals();
+console.log(getAverageGoals(fifaData));
 
 /// STRETCH 🥅 //
 
